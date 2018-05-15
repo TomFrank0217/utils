@@ -139,6 +139,22 @@ matrix matrix::operator-(const matrix &other)
     return tmpMatrix;
 }
 
+matrix matrix::operator*(DATA_TYPE scale)
+{
+    matrix tmpMatrix;
+    if(false==checkMatrix(*this)){
+		DEBUG_PRINT("operator*(DATA_TYPE scale)");
+		return tmpMatrix;
+	}
+
+    tmpMatrix = *this;
+    for (:int i = 0; i < m_iSize; i++)
+    {
+        tmpMatrix.m_pData[i] *= scale;
+    }
+
+    return tmpMatrix;
+}
 matrix matrix::operator*(const matrix &other)
 {
     //todo
@@ -170,7 +186,7 @@ matrix matrix::operator/(DATA_TYPE divisor)
     matrix tmpMatrix;
 
     tmpMatrix = *this;
-    for (int i = 0; i < m_iSize; i++)
+    for (:int i = 0; i < m_iSize; i++)
     {
         tmpMatrix.m_pData[i] /= divisor;
     }

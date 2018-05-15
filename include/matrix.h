@@ -18,6 +18,7 @@ public:
     matrix operator+(const matrix &other);
     matrix operator-(const matrix &other);
     matrix operator*(const matrix &other);
+    matrix operator*(DATA_TYPE scale);
     matrix operator/(DATA_TYPE divisor);
     matrix operator+=(const matrix &other);
     matrix transpose();
