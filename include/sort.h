@@ -84,4 +84,47 @@ void insertionSort(T *pArr, int iSize){
         pArr[j + 1] = iRightHand;
     }
 }
+
+/* πÈ≤¢≈≈–Ú */
+
+template <typename T>
+void MergeSort(T *pArr, T *copy, int start, int end){
+    if (1 >= end - start){
+        //copy[start] = pArr[start];
+        return;
+    }
+
+    int mid = (start + end) / 2;
+    MergeSort(pArr, copy, start, mid);
+    MergeSort(pArr, copy, mid, end);
+    for (int i = start; i<end; ++i){
+        copy[i] = pArr[i];
+    }
+    int i = start, j = mid, k = start;
+    while (i < mid&&j < end){
+        if (copy[i] < copy[j]){
+            pArr[k++] = copy[i++];
+        }
+        else{
+            pArr[k++] = copy[j++];
+        }
+    }
+
+    while (i < mid){
+        pArr[k++] = copy[i++];
+    }
+    while (j < end){
+        pArr[k++] = copy[j++];
+    }
+}
+template <typename T>
+void mergeSort(T *pArr, int iSize){
+    if (NULL == pArr || 2 > iSize){
+        return;
+    }
+    T *copy = new T[iSize];
+    MergeSort(pArr, copy, 0, iSize);
+    delete[] copy;
+    copy = NULL;
+}
 #endif
