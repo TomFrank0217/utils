@@ -85,7 +85,7 @@ void insertionSort(T *pArr, int iSize){
     }
 }
 
-/* 归并排序 */
+/* 归并排序 每次MergeSort(pArr, copy, start, end);之后,pArr 在[start,end) 区间已经有序 */
 
 template <typename T>
 void MergeSort(T *pArr, T *copy, int start, int end){
