@@ -127,4 +127,67 @@ void mergeSort(T *pArr, int iSize){
     delete[] copy;
     copy = NULL;
 }
+template <typename T>
+void shellSort(T *pArr, int iSize){
+    if (NULL == pArr || 2 > iSize){
+        return;
+    }
+
+    int gap = iSize / 2;
+    while (1 <= gap){
+        for (int i = gap; i < iSize; ++i){
+            int target = pArr[i];
+            int j = i - gap;
+            while (j >= 0 && pArr[j] > target){
+                swapF(pArr[j], pArr[j + gap]);
+                j -= gap;
+            }
+            pArr[j + gap] = target;
+        }
+        gap /= 2;
+    }
+}
+
+
+template <typename T>
+void keepHeap(T *p, int root, int iSize){
+    int mid = root;
+    int left = 0, right = 0;
+    int index = 0;
+    while (mid < iSize / 2){
+        index = mid;
+        left = mid * 2 + 1;
+        right = left + 1;
+        if (/*left<iSize&&*/p[left]>p[index]){
+            index = left;
+        }
+        if (right<iSize&&p[right]>p[index]){
+            index = left;
+        }
+        if (mid == index){
+            break;
+        }
+        else{
+            swapF(p[mid], p[index]);
+            mid = index;
+        }
+    }
+}
+template <typename T>
+void buildHeap(T *p, int iSize){
+    for (int i = iSize / 2 - 1; i >= 0; --i){
+        keepHeap(p, i, iSize);
+    }
+}
+template<typename T>
+void heapSort(T *p, int iSize){
+    if (NULL == p || 2 > iSize){
+        return;
+    }
+    buildHeap(p, iSize);
+    for (int i = iSize - 1; i > 0; --i){
+        swap(p[0], p[i]);
+        keepHeap(p, 0, i);
+    }
+}
 #endif
