@@ -162,7 +162,7 @@ void keepHeap(T *p, int root, int iSize){
             index = left;
         }
         if (right<iSize&&p[right]>p[index]){
-            index = left;
+            index = right;
         }
         if (mid == index){
             break;
@@ -186,8 +186,58 @@ void heapSort(T *p, int iSize){
     }
     buildHeap(p, iSize);
     for (int i = iSize - 1; i > 0; --i){
-        swap(p[0], p[i]);
+        swapF(p[0], p[i]);
         keepHeap(p, 0, i);
     }
 }
+
+template<typename T>
+void quickSort(T *a,int left, int right)
+{
+    int i, j, t, temp;
+    if (left>right)
+        return;
+
+    temp = a[left]; //temp中存的就是基准数 
+    i = left;
+    j = right;
+    while (i != j)
+    {
+        //顺序很重要，要先从右边开始找 
+        while (a[j] >= temp && i<j)
+            j--;
+        //再找右边的 
+        while (a[i] <= temp && i<j)
+            i++;
+        //交换两个数在数组中的位置 
+        if (i<j)
+        {
+            t = a[i];
+            a[i] = a[j];
+            a[j] = t;
+        }
+    }
+    //最终将基准数归位 
+    a[left] = a[i];
+    a[i] = temp;
+
+    //i = left, j = right - 1;
+    //int key = a[right];
+
+    //T tt;
+    //while (i < j){
+    //    if (a[i] < key){
+    //        ++i;
+    //    }
+    //    else{
+    //        tt = a[i], a[i] = a[j], a[j] = tt;
+    //        --j;
+    //    }
+    //}
+
+    //a[right] = a[i], a[i] = key;
+    quickSort(a, left, i - 1);//继续处理左边的，这里是一个递归的过程 
+    quickSort(a, i + 1, right);//继续处理右边的 ，这里是一个递归的过程 
+}
+
 #endif
